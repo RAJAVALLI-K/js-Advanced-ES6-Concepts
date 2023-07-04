@@ -346,6 +346,45 @@ function sum(...args) {
 let x = sum(4, 9, 16, 25, 29, 100, 66, 77);
 console.log(x);
 
+/***************Spread Operator********************/
+//by spread operator merging two values into one 
+var array1 = [10, 20, 30, 40, 50];
+var array2 = [60, 70, 80, 90, 100];
+var array3 = [...array1, ...array2];
+console.log(array3);//[10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
+
+// by copying the object to another
+
+const obj = {
+    firstname: "Divit",
+    lastname: "Patidar",
+};
+const obj2 = { ...obj };
+console.log(obj2);
+// output:
+// { firstname: "Divit",
+// lastname: "Patidar"}
+
+/****************Rest operator*******************/
+//it takes multiple elements as arguments and compresses them into a single element 
+function average(...args) {
+    console.log(args);
+    var avg =
+        args.reduce(function (a, b) {
+            return a + b;
+        }, 0) / args.length;
+    return avg;
+}
+console.log("average of numbers is : "
+    + average(1, 2, 3, 4, 5));
+console.log("average of numbers is : "
+    + average(1, 2, 3));
+// output:
+//[1, 2, 3, 4, 5]
+// "average of numbers is : 3"
+// [1, 2, 3]
+// "average of numbers is : 2"
+
 // string method
 
 var stringMethods = "three string method includes in es6"
@@ -473,10 +512,77 @@ console.log(b);
 [a, b, ...rest] = [10, 20, 30, 40, 50];
 console.log(rest);
 
+//*********** destructuring assignment on Array****************/
+var names = ["alpha", "beta", "gamma", "delta"];
+var [firstName, secondName] = names;
+
+console.log(firstName);// "alpha"
+console.log(secondName);//"beta"
+
+//Both of the procedure are same
+var [firstName, secondName] = ["alpha", "beta", "gamma", "delta"];
+
+console.log(firstName);//"alpha"
+console.log(secondName);//"beta
+//comma operator to skip elements;
+var [firstName, , thirdName] = ["alpha", "beta", "gamma", "delta"];
+
+console.log(firstName);//"alpha"
+console.log(thirdName);//"gamma"
+
+
+//rest of operator(...)means one variable to multiple elements upto last element 
+//the rest of should work where there is no element left on last without variable;
+
+//rest element mustbe a last element
+
+var [firstName, , ...lastName] = ["alpha", "beta", "gamma", "delta", "named"];
+
+console.log(firstName);//"alpha"
+console.log(lastName);//"gamma, delta"
+
+//************************Destructuring assignment on Object**************************/
+var marks = { r: 21, s: -34, q: 47 };
+
+const { r, s, q } = marks; // r = 21, s = -34, q = 47
+console.log(r);
+console.log(s);
+console.log(q);
+//but the variables and keys should be equal
+//assignning nested Object
+const marks = {
+    section1: { alpha: 15, beta: 16 },
+    section2: { alpha: -31, beta: 19 }
+};
+const { section1: { alpha: alpha1, beta: beta1 } } = marks;
+console.log(alpha1, beta1); // 15, 16
+
 
 // Templete Literals
 
 console.log(`the value is add ${y}`);
+
+//2.multiline string:
+// Without template literal using \n
+console.log('Some text that I want \n on two lines!');
+
+// With template literal
+console.log(`Some text that I want
+on two lines!`);
+
+//3. no parenthesis on function calling 
+function TaggedLiteralEg(strings) {
+    document.write(strings);
+}
+
+TaggedLiteralEg`raji`;
+
+//4.variable with multiline strings without concodination
+
+let value = 1000;
+console.log(`the value is not equalto ${value}`);
+
+
 
 // local/Session Stroage
 
@@ -508,3 +614,53 @@ console.log(num2++);
 console.log(num2++);
 console.log(++num2);
 console.log(num2);
+
+
+//where we declaring a variable is important
+/*************Var****************/
+// 1.var is global scoped
+console.log(a);
+var a = 10;
+// output is undefined
+
+//2.var can be redeclared and value changable
+var c = 10;
+var c = 20;
+console.log(c);
+// output is 20  
+
+/*************Let****************/
+
+//1.let is block scoped
+console.log(m);
+let m = 10;
+// output is error because it cannot take the b 
+
+//2.let cannot be redeclared
+
+// let v = 10;
+// let v = 20;
+// console.log(d);
+
+//output is error d has already declared.
+
+/**************CONST***************/
+//1.const is block scoped
+console.log(x);
+const f = 10;
+// output is error because it cannot take the b  
+
+//2.cannot set the value again is constant
+
+const z = 10;
+z = 20;
+
+//output is z is already declared
+
+//3.should give the value on declaration
+
+// const y;
+// y = 20;
+// console.log(y);
+
+//output is missing initilaizer in declaration
