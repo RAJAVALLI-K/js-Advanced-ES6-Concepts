@@ -1,4 +1,5 @@
 // ARRAY METHOD
+
 // map
 var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
 var maparr = arr.map(function (current) {
@@ -248,7 +249,7 @@ var ob1 = {
 var obj_2 = ob1;
 console.log(ob1, "\n", obj_2);
 
-obj_2.name = "sathish"
+obj_2.name = "rajii"
 console.log(ob1, "\n", obj_2);
 
 // SHALLOW COPY
@@ -260,7 +261,7 @@ var shallow_1 = {
 var shallow_2 = Object.assign({}, shallow_1);
 console.log(shallow_1, "\n", shallow_2);
 
-shallow_2.name = "sathish"
+shallow_2.name = "rajii"
 console.log(shallow_1, "\n", shallow_2);
 
 // SPREAD OPERATOR- concatenate the two function
@@ -346,153 +347,70 @@ function sum(...args) {
 let x = sum(4, 9, 16, 25, 29, 100, 66, 77);
 console.log(x);
 
-/***************Spread Operator********************/
-//by spread operator merging two values into one 
-var array1 = [10, 20, 30, 40, 50];
-var array2 = [60, 70, 80, 90, 100];
-var array3 = [...array1, ...array2];
-console.log(array3);//[10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
 
-// by copying the object to another
-
-const obj = {
-    firstname: "Divit",
-    lastname: "Patidar",
-};
-const obj2 = { ...obj };
-console.log(obj2);
-// output:
-// { firstname: "Divit",
-// lastname: "Patidar"}
-
-/****************Rest operator*******************/
-//it takes multiple elements as arguments and compresses them into a single element 
-function average(...args) {
-    console.log(args);
-    var avg =
-        args.reduce(function (a, b) {
-            return a + b;
-        }, 0) / args.length;
-    return avg;
+ // es6 rest operator
+ function fun(...input){
+    let sum = 0;
+    for(let i of input){
+        sum+=i;
+    }
+    return sum;
 }
-console.log("average of numbers is : "
-    + average(1, 2, 3, 4, 5));
-console.log("average of numbers is : "
-    + average(1, 2, 3));
-// output:
-//[1, 2, 3, 4, 5]
-// "average of numbers is : 3"
-// [1, 2, 3]
-// "average of numbers is : 2"
-
-// string method
-
-var stringMethods = "three string method includes in es6"
-var ab = stringMethods.includes("string");
-console.log(ab);
-var ac = stringMethods.startsWith("three");
-console.log(ac);
-var ad = stringMethods.endsWith("es6");
-console.log(ad);
+console.log(fun(1,2)); 
+console.log(fun(1,2,3)); 
+console.log(fun(1,2,3,4,5));
 
 // this // Class Constructor
 
-class Rectangle {
-    constructor(backgroundColor, border, opacity, width, height) {
-        this.backgroundColor = backgroundColor;
-        this.border = border;
-        this.opacity = opacity;
-        this.width = width;
-        this.height = height;
-        this.render();
+class Main{
+    constructor(){
+        this.name="Rajavalli";
     }
-
-    get node() {
-        if (this.rect) {
-            return this.rect;
-        } else {
-            this.rect = document.createElement('div');
-            document.body.append(this.rect);
-            return this.rect;
-        }
-    }
-
-    set backgroundColor(bgColor) {
-        this.background = bgColor;
-    }
-    set border(border) {
-        this.borderValue = border;
-    }
-    set opacity(opacity) {
-        this.opacityValue = opacity;
-    }
-    set width(widthValue) {
-        this.widthSize = widthValue;
-    }
-    set height(heightValue) {
-        this.heightSize = heightValue;
-    }
-
-    render() {
-        let node = this.node;
-        node.style.backgroundColor = this.background;
-        node.style.border = this.borderValue;
-        node.style.opacity = this.opacityValue;
-        node.style.width = this.widthSize;
-        node.style.height = this.heightSize;
+    getData(){
+        console.log("'name'-",this.name);
     }
 }
+const objec = new Main();
+objec.getData();                  //returns  'name'- Rajavalli
 
-let rectangle = new Rectangle('#ffff', '3px solid black', '0.5', '300px', '150px');
-rectangle1 = new Rectangle('yellow', '3px solid skyblue', '1', '300px', '150px');
+class Child extends Main{
+    getName(){
+        super.getData();
+    }
+}
+const obj1 =new Child();
+obj1.getName();                  //returns  'name'- Rajavalli
 
+// this
+
+
+console.log(this);
+
+let student={
+    name:"rajavalli",
+    age:21,
+    hello(){
+        let stName= "my name is " + this.name;
+        console.log(stName);
+    }
+};
+student.hello();
 
 
 // Call & Apply & Bind
 
-// call
-function Product(name, price) {
-    this.name = name;
-    this.price = price;
-}
+var obj={name:'React'};
 
-function Food(name, price) {
-    Product.call(this, name, price);
-    this.category = 'food';
-}
+function main(a, b, c){
+   console.log(this, a, b, c);
+};
 
-console.log(new Food('cheese', 5).name);
+main.call(obj, 3, 4, 5);
+main.apply(obj, [1,2,3]);
 
-
-// apply
-
-let nObj = {
-    name: "Tony"
-}
-
-let pName = {
-    name: "steve",
-    say: function (...age) {
-        console.log(this.name + " age is " + age);
-    }
-}
-pName.say.apply(nObj, [42]);
-
-// bind
-
-let nameObj = {
-    name: "Tony"
-}
-
-let PrintName = {
-    name: "steve",
-    sayHi: function () {
-        console.log(this.name);
-    }
-}
-let HiFun = PrintName.sayHi.bind(nameObj);
-HiFun();
-
+var main1=main.bind(obj, 1, 2, 3);
+main1();
+console.log(obj);
 
 // Arrow Function --->this function only bottom calling work akum this function,Simplyfy function
 
@@ -501,6 +419,25 @@ let add = () => {
 }
 y = add(10, 10);
 console.log(y);
+
+// arrow 
+
+var obj3={
+    name:"Rajavalli"
+}
+
+var obj4={
+    normalFun(){
+        console.log(this.name);
+        var arrowFun= ()=>{
+            console.log(this);
+        };
+        arrowFun();
+    }
+};
+obj4.normalFun.call(obj3);
+
+
 
 // Destructuring
 
@@ -512,77 +449,16 @@ console.log(b);
 [a, b, ...rest] = [10, 20, 30, 40, 50];
 console.log(rest);
 
-//*********** destructuring assignment on Array****************/
 var names = ["alpha", "beta", "gamma", "delta"];
 var [firstName, secondName] = names;
 
 console.log(firstName);// "alpha"
 console.log(secondName);//"beta"
 
-//Both of the procedure are same
-var [firstName, secondName] = ["alpha", "beta", "gamma", "delta"];
-
-console.log(firstName);//"alpha"
-console.log(secondName);//"beta
-//comma operator to skip elements;
-var [firstName, , thirdName] = ["alpha", "beta", "gamma", "delta"];
-
-console.log(firstName);//"alpha"
-console.log(thirdName);//"gamma"
-
-
-//rest of operator(...)means one variable to multiple elements upto last element 
-//the rest of should work where there is no element left on last without variable;
-
-//rest element mustbe a last element
-
-var [firstName, , ...lastName] = ["alpha", "beta", "gamma", "delta", "named"];
-
-console.log(firstName);//"alpha"
-console.log(lastName);//"gamma, delta"
-
-//************************Destructuring assignment on Object**************************/
-var marks = { r: 21, s: -34, q: 47 };
-
-const { r, s, q } = marks; // r = 21, s = -34, q = 47
-console.log(r);
-console.log(s);
-console.log(q);
-//but the variables and keys should be equal
-//assignning nested Object
-const marks = {
-    section1: { alpha: 15, beta: 16 },
-    section2: { alpha: -31, beta: 19 }
-};
-const { section1: { alpha: alpha1, beta: beta1 } } = marks;
-console.log(alpha1, beta1); // 15, 16
-
 
 // Templete Literals
 
 console.log(`the value is add ${y}`);
-
-//2.multiline string:
-// Without template literal using \n
-console.log('Some text that I want \n on two lines!');
-
-// With template literal
-console.log(`Some text that I want
-on two lines!`);
-
-//3. no parenthesis on function calling 
-function TaggedLiteralEg(strings) {
-    document.write(strings);
-}
-
-TaggedLiteralEg`raji`;
-
-//4.variable with multiline strings without concodination
-
-let value = 1000;
-console.log(`the value is not equalto ${value}`);
-
-
 
 // local/Session Stroage
 
@@ -614,7 +490,6 @@ console.log(num2++);
 console.log(num2++);
 console.log(++num2);
 console.log(num2);
-
 
 //where we declaring a variable is important
 /*************Var****************/
